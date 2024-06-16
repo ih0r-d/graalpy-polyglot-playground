@@ -44,7 +44,6 @@ package com.github.ih0rd;
 import com.github.ih0rd.adapters.Hello;
 import com.github.ih0rd.utils.PythonEvaluator;
 
-import static com.github.ih0rd.utils.PolyglotHelper.*;
 
 public class GraalPy {
 
@@ -55,9 +54,10 @@ public class GraalPy {
         var pyClassName = "PyHello";
         var memberTargetType = Hello.class;
 
-        Object helloEval = PythonEvaluator.eval(pyFileName, pyClassName, memberTargetType, "hello", "GenericOne");
+
+        Object helloEval = PythonEvaluator.evaluate(pyFileName, pyClassName, memberTargetType, "hello", "GenericOne");
         System.out.println("helloEval = " + helloEval);
-        Object valueEval = PythonEvaluator.eval(pyFileName, pyClassName, memberTargetType, "num");
+        Object valueEval = PythonEvaluator.evaluate(pyFileName, pyClassName, memberTargetType, "num");
         System.out.println("valueEval = " + valueEval);
     }
 }

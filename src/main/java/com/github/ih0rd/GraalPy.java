@@ -42,9 +42,7 @@
 package com.github.ih0rd;
 
 import com.github.ih0rd.adapters.Hello;
-import org.graalvm.polyglot.*;
-
-import java.io.IOException;
+import com.github.ih0rd.utils.PythonEvaluator;
 
 import static com.github.ih0rd.utils.PolyglotHelper.*;
 
@@ -52,30 +50,14 @@ public class GraalPy {
 
 
     public static void main(String[] args) {
-        try (Context context = getContext()) {
-            Source source;
-            try {
-                source = Source.newBuilder(PYTHON, "import hello", "<internal>").internal(true).build();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
 
-            // eval the snippet __graalpython__.run_path() which executes what the option python.InputFilePath points to
-            context.eval(source);
+        var pyFileName = "hello";
+        var pyClassName = "PyHello";
+        var memberTargetType = Hello.class;
 
-            // retrieve the python PyHello class
-            Value pyHelloClass = context.getPolyglotBindings().getMember("PyHello");
-            Value pyHello = pyHelloClass.newInstance();
-            // and cast it to the Hello interface which matches PyHello
-            Hello hello = pyHello.as(Hello.class);
-            hello.hello("java");
-            
-        } catch (PolyglotException e) {
-            if (e.isExit()) {
-                System.exit(e.getExitStatus());
-            } else {
-                throw e;
-            }
-        }
+        Object helloEval = PythonEvaluator.eval(pyFileName, pyClassName, memberTargetType, "hello", "GenericOne");
+        System.out.println("helloEval = " + helloEval);
+        Object valueEval = PythonEvaluator.eval(pyFileName, pyClassName, memberTargetType, "num");
+        System.out.println("valueEval = " + valueEval);
     }
 }

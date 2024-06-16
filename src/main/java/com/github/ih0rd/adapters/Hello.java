@@ -43,4 +43,5 @@ package com.github.ih0rd.adapters;
 
 public interface Hello {
     void hello(String txt);
+    Integer num();
 }

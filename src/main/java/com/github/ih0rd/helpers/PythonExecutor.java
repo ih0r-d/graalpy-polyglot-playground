@@ -3,21 +3,24 @@ package com.github.ih0rd.helpers;
 import com.github.ih0rd.exceptions.InvokeMethodException;
 import com.github.ih0rd.exceptions.ReadPyFileException;
 import com.github.ih0rd.exceptions.ValidationException;
+import com.github.ih0rd.utils.CommonUtils;
+import com.github.ih0rd.utils.StringCaseConverter;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.PolyglotException;
 import org.graalvm.polyglot.Source;
 
 import java.io.IOException;
+import java.util.List;
 
 import static com.github.ih0rd.helpers.PolyglotHelper.*;
 import static com.github.ih0rd.utils.CommonUtils.*;
 
 public class PythonExecutor {
 
-    public static <T> Object evaluate(String importPyFileName, Class<T> memberTargetType, String methodName, Object... args) {
+    public static <T> Object evaluate(Class<T> memberTargetType, String methodName, Object... args) {
 
         try (var context = getContext()) {
-            var type = mapValue(importPyFileName, memberTargetType, methodName, context);
+            var type = mapValue( memberTargetType, methodName, context);
             return invokeMethod(memberTargetType, type, methodName, args);
         } catch (PolyglotException e) {
             if (e.isExit()) {
@@ -40,10 +43,10 @@ public class PythonExecutor {
         }
     }
 
-    public static <T> Object evaluate(String importPyFileName, Class<T> memberTargetType, String methodName) {
+    public static <T> Object evaluate(Class<T> memberTargetType, String methodName) {
 
         try (var context = getContext()) {
-            var type = mapValue(importPyFileName, memberTargetType, methodName, context);
+            var type = mapValue(memberTargetType, methodName, context);
             return invokeMethod(memberTargetType, type, methodName);
         } catch (PolyglotException e) {
             if (e.isExit()) {
@@ -57,8 +60,9 @@ public class PythonExecutor {
 
 
     //    Maps a polyglot value to a value with a given Java target type.
-    private static <T> T mapValue(String importPyFileName, Class<T> memberTargetType, String methodName, Context context) {
-        var source = getSource(importPyFileName);
+    private static <T> T mapValue(Class<T> memberTargetType, String methodName, Context context) {
+//        var source = getSource(importPyFileName);
+        var source = getSource(memberTargetType);
         context.eval(source);
 
         var polyglotBindings = context.getPolyglotBindings();
@@ -74,16 +78,34 @@ public class PythonExecutor {
         return member.newInstance().as(memberTargetType);
     }
 
+
     private static Source getSource(String importPyFileName) {
 
         Source source;
         try {
             source = Source
                     .newBuilder(PYTHON, "import " + importPyFileName, "<internal>")
-                    .internal(true)
                     .build();
         } catch (IOException e) {
             throw new ReadPyFileException("Could not load Python script file: " + importPyFileName, e);
+        }
+        return source;
+    }
+
+    private static <T> Source getSource(Class<T> memberTargetType) {
+        Source source;
+
+        var interfaceName = memberTargetType.getSimpleName();
+        var pyFileName = StringCaseConverter.camelToSnake(interfaceName);
+        if (!checkFileExists(interfaceName)) {
+            throw new ValidationException("Cannot find Python script file: " + pyFileName);
+        }
+        try {
+            source = Source
+                    .newBuilder(PYTHON, "import " + pyFileName, "<internal>")
+                    .build();
+        } catch (IOException e) {
+            throw new ReadPyFileException("Could not load Python script file: " + pyFileName, e);
         }
         return source;
     }

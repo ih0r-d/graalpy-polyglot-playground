@@ -45,18 +45,18 @@ import com.github.ih0rd.adapters.Hello;
 import com.github.ih0rd.helpers.PythonExecutor;
 
 
+
 public class GraalPy {
 
 
     public static void main(String[] args) {
 
-        var pyFileName = "hello";
         var memberTargetType = Hello.class;
 
 
-        Object helloEval = PythonExecutor.evaluate(pyFileName, memberTargetType, "hello", "GenericOne");
+        Object helloEval = PythonExecutor.evaluate(memberTargetType, "hello", "GenericOne");
         System.out.println("helloEval = " + helloEval);
-        Object valueEval = PythonExecutor.evaluate(pyFileName, memberTargetType, "num");
+        Object valueEval = PythonExecutor.evaluate( memberTargetType, "num");
         System.out.println("valueEval = " + valueEval);
     }
 }

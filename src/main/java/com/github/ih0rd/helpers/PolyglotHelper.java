@@ -9,10 +9,9 @@ import org.graalvm.python.embedding.utils.VirtualFileSystem;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.github.ih0rd.utils.Constants.*;
+
 public class PolyglotHelper {
-    private static final String VENV_PREFIX = "/vfs/venv";
-    private static final String HOME_PREFIX = "/vfs/home";
-    private static final String PROJ_PREFIX = "/vfs/proj";
 
     public static final String PYTHON = "python";
 
@@ -55,10 +54,8 @@ public class PolyglotHelper {
      *
      * @return VirtualFileSystem
      */
-    private static VirtualFileSystem getVirtualFileSystem() {
-        return VirtualFileSystem.newBuilder()
-                .extractFilter(p -> p.toString().endsWith(".ttf"))
-                .build();
+    private static org.graalvm.python.embedding.utils.VirtualFileSystem getVirtualFileSystem() {
+        return VirtualFileSystem.newBuilder().build();
     }
 
 
@@ -124,4 +121,5 @@ public class PolyglotHelper {
                 "engine.WarnInterpreterOnly", "false"
         );
     }
+
 }

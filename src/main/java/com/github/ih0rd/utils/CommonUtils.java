@@ -3,12 +3,17 @@ package com.github.ih0rd.utils;
 import com.github.ih0rd.exceptions.InvokeMethodException;
 import com.github.ih0rd.exceptions.ValidationException;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
+import static com.github.ih0rd.utils.Constants.PROJ_RESOURCES_PATH;
 
 public class CommonUtils {
     public static <T, R> R invokeMethod(Class<T> targetType, T targetInstance, String methodName, Object... args) {
@@ -57,4 +62,13 @@ public class CommonUtils {
         Iterator<T> iterator = set.iterator();
         return iterator.next();
     }
+
+    public static boolean checkFileExists(String fileName) {
+        try (var files = Files.list(Paths.get(PROJ_RESOURCES_PATH))) {
+            return files.anyMatch(f -> f.getFileName().toString().contains(fileName.toLowerCase()));
+        } catch (IOException e) {
+            return false;
+        }
+    }
 }
+

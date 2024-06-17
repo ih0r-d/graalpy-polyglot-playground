@@ -1,4 +1,4 @@
-package com.github.ih0rd.utils;
+package com.github.ih0rd.helpers;
 
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.HostAccess;

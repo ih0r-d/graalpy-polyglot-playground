@@ -49,4 +49,4 @@ class PyHello:
         return 42
 
 # We export the PyHello class to Java as our explicit interface with the Java side
-polyglot.export_value("PyHello", PyHello)
+polyglot.export_value("Hello", PyHello)

@@ -42,7 +42,7 @@
 package com.github.ih0rd;
 
 import com.github.ih0rd.adapters.Hello;
-import com.github.ih0rd.utils.PythonEvaluator;
+import com.github.ih0rd.helpers.PythonExecutor;
 
 
 public class GraalPy {
@@ -51,13 +51,12 @@ public class GraalPy {
     public static void main(String[] args) {
 
         var pyFileName = "hello";
-        var pyClassName = "PyHello";
         var memberTargetType = Hello.class;
 
 
-        Object helloEval = PythonEvaluator.evaluate(pyFileName, pyClassName, memberTargetType, "hello", "GenericOne");
+        Object helloEval = PythonExecutor.evaluate(pyFileName, memberTargetType, "hello", "GenericOne");
         System.out.println("helloEval = " + helloEval);
-        Object valueEval = PythonEvaluator.evaluate(pyFileName, pyClassName, memberTargetType, "num");
+        Object valueEval = PythonExecutor.evaluate(pyFileName, memberTargetType, "num");
         System.out.println("valueEval = " + valueEval);
     }
 }

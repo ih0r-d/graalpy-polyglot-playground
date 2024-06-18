@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.Set;
 
 import static com.github.ih0rd.utils.Constants.*;
@@ -20,7 +21,7 @@ public class CommonUtils {
 
     /**
      * @param targetType Java target type associated from Python class
-     * @param targetInstance maped a polyglot value to a value with a given Java target type.
+     * @param targetInstance mapped a polyglot value to a value with a given Java target type.
      * @param methodName method name will be evaluated
      * @param args Varargs of input arguments needed to python method and java association
      * @param <T> Generic type of Java target type.
@@ -29,14 +30,9 @@ public class CommonUtils {
      */
     public static <T, R> R invokeMethod(Class<T> targetType, T targetInstance, String methodName, Object... args) {
         try {
-            // Find the method with the given name and parameter types
-            Class<?>[] argTypes = new Class[args.length];
+            var parameterTypes = getParameterTypesByMethodName(targetType, methodName);
 
-            for (int i = 0; i < args.length; i++) {
-                argTypes[i] = args[i].getClass();
-            }
-
-            Method method = targetType.getMethod(methodName, argTypes);
+            Method method = targetType.getMethod(methodName, parameterTypes);
 
             // Invoke the method on the target instance
             Object result = method.invoke(targetInstance, args);
@@ -53,6 +49,22 @@ public class CommonUtils {
         } catch (ClassCastException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             throw new PolyglotApiExecutionException("Could not invoke method '" + methodName + "'", e);
         }
+    }
+
+    /**
+     * @param targetType Java target type associated from Python class
+     * @param methodName method name will be evaluated
+     * @param <T> Generic type of Java target type.
+     * @return array of parameter types of arguments by methodName
+     */
+    private static <T> Class<?>[] getParameterTypesByMethodName(Class<T> targetType, String methodName) {
+        var methodOptional = Arrays.stream(targetType.getDeclaredMethods())
+                .filter(method -> method.getName().equals(methodName))
+                .findFirst();
+        if (methodOptional.isEmpty()) {
+            throw new PolyglotApiExecutionException("Method '" + methodName + "' not found");
+        }
+        return methodOptional.get().getParameterTypes();
     }
 
 

@@ -14,5 +14,7 @@ public class GraalPyRunner {
         System.out.println("helloEval = " + helloEval);
         Object valueEval = PythonExecutor.evaluate(Hello.class, "num");
         System.out.println("valueEval = " + valueEval);
+        Object sumEval = PythonExecutor.evaluate(Hello.class, "sum", 3,7);
+        System.out.println("sumEval = " + sumEval);
     }
 }

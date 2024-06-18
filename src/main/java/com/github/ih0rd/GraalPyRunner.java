@@ -45,7 +45,7 @@ import com.github.ih0rd.adapters.Hello;
 import com.github.ih0rd.helpers.PythonExecutor;
 
 
-public class GraalPy {
+public class GraalPyRunner {
 
 
     public static void main(String[] args) {

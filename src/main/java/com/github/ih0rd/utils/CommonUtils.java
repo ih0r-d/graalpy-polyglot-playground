@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Set;
 
-import static com.github.ih0rd.utils.Constants.PROJ_RESOURCES_PATH;
+import static com.github.ih0rd.utils.Constants.*;
 
 /**
  * Common utils contains general methods

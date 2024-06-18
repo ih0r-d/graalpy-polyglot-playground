@@ -1,7 +1,7 @@
 package com.github.ih0rd.exceptions;
 
 /**
- * Runtime exception to use with GraalPy polyglot API executions
+ * Runtime exception to use with GraalPyRunner polyglot API executions
  */
 public class PolyglotApiExecutionException extends RuntimeException {
 

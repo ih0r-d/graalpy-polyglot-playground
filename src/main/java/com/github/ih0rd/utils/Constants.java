@@ -1,6 +1,8 @@
 package com.github.ih0rd.utils;
 
 public interface Constants {
+    String PYTHON = "python";
+
     String VENV_PREFIX = "/vfs/venv";
     String HOME_PREFIX = "/vfs/home";
     String PROJ_PREFIX = "/vfs/proj";

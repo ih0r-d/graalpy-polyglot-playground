@@ -1,7 +1,6 @@
 package com.github.ih0rd.utils;
 
-import com.github.ih0rd.exceptions.InvokeMethodException;
-import com.github.ih0rd.exceptions.ValidationException;
+import com.github.ih0rd.exceptions.PolyglotApiExecutionException;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -10,12 +9,24 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import static com.github.ih0rd.utils.Constants.PROJ_RESOURCES_PATH;
 
+/**
+ * Common utils contains general methods
+ */
 public class CommonUtils {
+
+    /**
+     * @param targetType Java target type associated from Python class
+     * @param targetInstance maped a polyglot value to a value with a given Java target type.
+     * @param methodName method name will be evaluated
+     * @param args Varargs of input arguments needed to python method and java association
+     * @param <T> Generic type of Java target type.
+     * @param <R> Result type of evaluation method
+     * @return Result of evaluation method. If returned type is void, result will be null
+     */
     public static <T, R> R invokeMethod(Class<T> targetType, T targetInstance, String methodName, Object... args) {
         try {
             // Find the method with the given name and parameter types
@@ -40,29 +51,43 @@ public class CommonUtils {
             }
 
         } catch (ClassCastException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            throw new InvokeMethodException("Could not invoke method '" + methodName + "'", e);
+            throw new PolyglotApiExecutionException("Could not invoke method '" + methodName + "'", e);
         }
     }
 
-    public static List<String> getInterfaceMethods(Class<?> interfaceClass) {
+
+    /**
+     * @param interfaceClass Java target type associated from Python class
+     * @param methodName method name will be evaluated
+     * @return true if method exists
+     */
+    public static boolean checkIfMethodExists(Class<?> interfaceClass, String methodName) {
         if (!interfaceClass.isInterface()) {
-            throw new ValidationException("Provided class '" + interfaceClass.getName() + "' must be an interface");
+            throw new PolyglotApiExecutionException("Provided class '" + interfaceClass.getName() + "' must be an interface");
         }
 
-        // Convert array of methods to a list of method names
         return Arrays.stream(interfaceClass.getDeclaredMethods())
                 .map(Method::getName)
-                .toList();
+                .anyMatch(name -> name.contains(methodName));
     }
 
-    public static <T> T getFirstElement(Set<T> set) {
-        if (set == null || set.isEmpty()) {
+    /**
+     * @param memberKeys set of all member keys from bindings
+     * @param <T> Generic type of Java target type.
+     * @return member key if memberKeys is not null and not empty
+     */
+    public static <T> T getFirstElement(Set<T> memberKeys) {
+        if (memberKeys == null || memberKeys.isEmpty()) {
             return null;
         }
-        Iterator<T> iterator = set.iterator();
+        Iterator<T> iterator = memberKeys.iterator();
         return iterator.next();
     }
 
+    /**
+     * @param fileName simpleName of java interface
+     * @return true if file exists
+     */
     public static boolean checkFileExists(String fileName) {
         try (var files = Files.list(Paths.get(PROJ_RESOURCES_PATH))) {
             return files.anyMatch(f -> f.getFileName().toString().contains(fileName.toLowerCase()));

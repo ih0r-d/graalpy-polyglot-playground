@@ -3,6 +3,9 @@ package com.github.ih0rd.utils;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+/**
+ * Simple converter using to transform string between cases
+ */
 public class StringCaseConverter {
 
     /**

@@ -13,8 +13,6 @@ import static com.github.ih0rd.utils.Constants.*;
 
 public class PolyglotHelper {
 
-    public static final String PYTHON = "python";
-
 
     /**
      * This method returned configured Context for working in runtime with Python

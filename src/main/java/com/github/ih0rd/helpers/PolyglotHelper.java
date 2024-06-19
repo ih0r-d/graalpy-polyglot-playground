@@ -23,6 +23,10 @@ public class PolyglotHelper {
         var vfs = getVirtualFileSystem();
         var configOptions = getConfigOptions(vfs);
 
+        var ioAccess = IOAccess.newBuilder()
+                .allowHostSocketAccess(true)
+                .fileSystem(vfs)
+                .build();
         return Context.newBuilder()
                 // set true to allow experimental options
                 .allowExperimentalOptions(false)
@@ -31,10 +35,7 @@ public class PolyglotHelper {
                 // allows python to access the java language
                 .allowHostAccess(HostAccess.ALL)
                 // allow access to the virtual and the host filesystem, as well as sockets
-                .allowIO(IOAccess.newBuilder()
-                        .allowHostSocketAccess(true)
-                        .fileSystem(vfs)
-                        .build())
+                .allowIO(ioAccess)
                 // allow creating python threads
                 .allowCreateThread(true)
                 // allow running Python native extensions

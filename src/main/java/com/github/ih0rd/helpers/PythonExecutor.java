@@ -6,7 +6,10 @@ import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.PolyglotException;
 import org.graalvm.polyglot.Source;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
 
 import static com.github.ih0rd.helpers.PolyglotHelper.*;
 import static com.github.ih0rd.utils.CommonUtils.*;
@@ -22,18 +25,14 @@ public class PythonExecutor {
      * @return Result of evaluation method. If method type VOID, as result will be null
      */
     public static <T> Object evaluate(Class<T> memberTargetType, String methodName, Object... args) {
+        Object result;
 
         try (var context = getContext()) {
             var type = mapValue(memberTargetType, methodName, context);
-            return invokeMethod(memberTargetType, type, methodName, args);
-        } catch (PolyglotException e) {
-            if (e.isExit()) {
-                System.exit(e.getExitStatus());
-            } else {
-                throw new PolyglotApiExecutionException("Could not invoke method " + methodName, e);
-            }
+            result = invokeMethod(memberTargetType, type, methodName, args);
+            System.out.println("object = " + result);
+            return result;
         }
-        return null;
     }
 
 
@@ -44,18 +43,13 @@ public class PythonExecutor {
      * @return Result of evaluation method. If returned type is void, result will be null
      */
     public static <T> Object evaluate(Class<T> memberTargetType, String methodName) {
-
+        Object result;
         try (var context = getContext()) {
             var type = mapValue(memberTargetType, methodName, context);
-            return invokeMethod(memberTargetType, type, methodName);
-        } catch (PolyglotException e) {
-            if (e.isExit()) {
-                System.exit(e.getExitStatus());
-            } else {
-                throw new PolyglotApiExecutionException("Could not invoke method " + methodName, e);
-            }
+            result = invokeMethod(memberTargetType, type, methodName);
+            System.out.println("object = " + result);
+            return result;
         }
-        return null;
     }
 
     /**
@@ -83,7 +77,7 @@ public class PythonExecutor {
      * @return returned maps a polyglot value to a value with a given Java target type.
      */
     private static <T> T mapValue(Class<T> memberTargetType, String methodName, Context context) {
-        var source = getSource(memberTargetType);
+        var source = getFileSource(memberTargetType);
         context.eval(source);
 
         var polyglotBindings = context.getPolyglotBindings();
@@ -104,17 +98,41 @@ public class PythonExecutor {
      * @param <T> Generic type of Java target type.
      * @return Representation of a source code unit and its contents that can be evaluated in an execution context.
      */
-    private static <T> Source getSource(Class<T> memberTargetType) {
+    private static <T> Source getImportSource(Class<T> memberTargetType) {
         Source source;
 
         var interfaceName = memberTargetType.getSimpleName();
         var pyFileName = StringCaseConverter.camelToSnake(interfaceName);
-        if (!checkFileExists(interfaceName)) {
+        if (!checkFileExists(pyFileName)) {
             throw new PolyglotApiExecutionException("Cannot find Python script file: " + pyFileName);
         }
         try {
             source = Source
                     .newBuilder(PYTHON, "import " + pyFileName, "<internal>")
+                    .build();
+        } catch (IOException e) {
+            throw new PolyglotApiExecutionException("Could not load Python script file: " + pyFileName, e);
+        }
+        return source;
+    }
+
+    /**
+     * @param memberTargetType Java target type associated from Python class
+     * @param <T> Generic type of Java target type.
+     * @return Representation of a source code unit and its contents that can be evaluated in an execution context.
+     */
+    private static <T> Source getFileSource(Class<T> memberTargetType) {
+        Source source;
+
+        var interfaceName = memberTargetType.getSimpleName();
+        var pyFileName = StringCaseConverter.camelToSnake(interfaceName);
+        Optional<Path> optionalPath = checkFileExists2(pyFileName);
+        if (optionalPath.isEmpty()) {
+            throw new PolyglotApiExecutionException("Cannot find Python script file: " + pyFileName);
+        }
+        try {
+            source = Source
+                    .newBuilder(PYTHON, optionalPath.get().toFile())
                     .build();
         } catch (IOException e) {
             throw new PolyglotApiExecutionException("Could not load Python script file: " + pyFileName, e);

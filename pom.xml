@@ -23,6 +23,12 @@
       <version>${graalpy.version}</version>
       <type>pom</type>
     </dependency>
+
+    <dependency>
+      <groupId>org.graalvm.polyglot</groupId>
+      <artifactId>polyglot</artifactId>
+      <version>${graalpy.version}</version>
+    </dependency>
     <!-- The dependency on python-launcher is only required if the graalpy plugin is used with packages -->
     <dependency>
       <groupId>org.graalvm.python</groupId>
@@ -56,18 +62,15 @@
         <executions>
           <execution>
             <configuration>
-              <!-- specify python packages as if used with pip -->
               <packages>
-                <package>termcolor==2.2</package>
+                <package>termcolor</package>
+                <package>numpy</package>
+                <package>pandas</package>
               </packages>
               <pythonHome>
-                <!-- java-like regular expression what file paths should be included into venv/home;
-                     default is all -->
                 <includes>
                   <include>.*</include>
                 </includes>
-                <!-- java-like regular expression what file paths should be excluded from venv/home;
-                     default is none -->
                 <excludes>
                 </excludes>
               </pythonHome>

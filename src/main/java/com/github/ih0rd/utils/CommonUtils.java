@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -25,30 +26,42 @@ public class CommonUtils {
      * @param methodName method name will be evaluated
      * @param args Varargs of input arguments needed to python method and java association
      * @param <T> Generic type of Java target type.
-     * @param <R> Result type of evaluation method
      * @return Result of evaluation method. If returned type is void, result will be null
      */
-    public static <T, R> R invokeMethod(Class<T> targetType, T targetInstance, String methodName, Object... args) {
+    public static <T> Object invokeMethod(Class<T> targetType, T targetInstance, String methodName, Object... args) {
         try {
-            var parameterTypes = getParameterTypesByMethodName(targetType, methodName);
-
-            Method method = targetType.getMethod(methodName, parameterTypes);
+            var method = getMethodByName(targetType, methodName);
 
             // Invoke the method on the target instance
-            Object result = method.invoke(targetInstance, args);
+            return method.invoke(targetInstance, args);
 
-            // If the method return type is void, return null
-            if (method.getReturnType().equals(Void.TYPE)) {
-                return null;
-            } else {
-                @SuppressWarnings("unchecked")
-                R castResult = (R) result;
-                return castResult;
-            }
-
-        } catch (ClassCastException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+        } catch (Exception e) {
             throw new PolyglotApiExecutionException("Could not invoke method '" + methodName + "'", e);
         }
+    }
+
+    /**
+     * @param targetType Java target type associated from Python class
+     * @param targetInstance mapped a polyglot value to a value with a given Java target type.
+     * @param methodName method name will be evaluated
+     * @param args Varargs of input arguments needed to python method and java association
+     * @param <T> Generic type of Java target type.
+     */
+    public static <T> void invokeVoidMethod(Class<T> targetType, T targetInstance, String methodName, Object... args) {
+        try {
+            var method = getMethodByName(targetType, methodName);
+
+            // Invoke the method on the target instance
+            method.invoke(targetInstance, args);
+
+        } catch (Exception e) {
+            throw new PolyglotApiExecutionException("Could not invoke method '" + methodName + "'", e);
+        }
+    }
+
+    private static <T> Method getMethodByName(Class<T> targetType, String methodName) throws NoSuchMethodException {
+        var parameterTypes = getParameterTypesByMethodName(targetType, methodName);
+        return targetType.getMethod(methodName, parameterTypes);
     }
 
     /**
@@ -105,6 +118,18 @@ public class CommonUtils {
             return files.anyMatch(f -> f.getFileName().toString().contains(fileName.toLowerCase()));
         } catch (IOException e) {
             return false;
+        }
+    }
+
+    /**
+     * @param fileName simpleName of java interface
+     * @return Optional of Path if file exists
+     */
+    public static Optional<Path> checkFileExists2(String fileName) {
+        try (var files = Files.list(Paths.get(PROJ_RESOURCES_PATH))) {
+            return files.filter(f-> f.getFileName().toString().contains(fileName.toLowerCase())).findFirst();
+        } catch (IOException e) {
+            return Optional.empty();
         }
     }
 }

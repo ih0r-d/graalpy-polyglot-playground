@@ -3,10 +3,10 @@ import polyglot
 ### Begin of implementation
 
 import copy
+
 class SimplexSolver:
     """
-    Solves linear programs using simplex algorithm and
-        output problem steps in LaTeX file.
+    Solves linear programs using simplex algorithm.
     """
 
     # Table for converting inequality list to LaTeX

@@ -64,8 +64,6 @@
             <configuration>
               <packages>
                 <package>termcolor</package>
-                <package>numpy</package>
-                <package>pandas</package>
               </packages>
               <pythonHome>
                 <includes>

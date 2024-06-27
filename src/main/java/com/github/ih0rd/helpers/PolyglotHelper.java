@@ -31,7 +31,7 @@ public class PolyglotHelper {
                 // set true to allow experimental options
                 .allowExperimentalOptions(false)
                 // setting false will deny all privileges unless configured below
-                .allowAllAccess(false)
+                .allowAllAccess(true)
                 // allows python to access the java language
                 .allowHostAccess(HostAccess.ALL)
                 // allow access to the virtual and the host filesystem, as well as sockets

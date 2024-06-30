@@ -13,7 +13,6 @@ import static com.github.ih0rd.utils.Constants.*;
 
 public class PolyglotHelper {
 
-
     /**
      * This method returned configured Context for working in runtime with Python
      *
@@ -46,7 +45,6 @@ public class PolyglotHelper {
                 .build();
     }
 
-
     /**
      * You can specify more logic in extractFilter what in files in the virtual filesystem need to be accessed outside the Truffle sandbox.
      * e.g. if they need to be accessed by the operating system loader.
@@ -57,11 +55,10 @@ public class PolyglotHelper {
         return VirtualFileSystem.newBuilder().build();
     }
 
-
     /**
      * Specified all options used in build of Context for python.
      *
-     * @return Map<String,String> with options
+     * @return Map<String, String> with options
      */
     private static Map<String, String> getConfigOptions(VirtualFileSystem vfs) {
         var pythonVerbose = System.getenv("PYTHONVERBOSE") != null ? "true" : "false";
@@ -82,7 +79,7 @@ public class PolyglotHelper {
     /**
      * Specified options for vfs and manage embedded resources as project and home files.
      *
-     * @return Map<String,String> with options
+     * @return Map<String, String> with options
      */
     private static Map<String, String> getVfsOptions(VirtualFileSystem vfs) {
         return Map.of(
@@ -96,9 +93,10 @@ public class PolyglotHelper {
     /**
      * Specified options for python logging and engine config.
      *
-     * @return Map<String,String> with options
+     * @return Map<String, String> with options
      */
-    private static Map<String, String> getPythonOptions(String pythonVerbose, String pythonLogLevel, String warnOptions, String executable) {
+    private static Map<String, String> getPythonOptions(String pythonVerbose, String pythonLogLevel,
+                                                        String warnOptions, String executable) {
         return Map.of(
                 // choose the backend for the POSIX module
                 "python.PosixModuleBackend", "java",

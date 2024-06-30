@@ -33,7 +33,6 @@ public class PythonExecutor {
         return invokeMethod(memberTargetType, type, methodName, args);
     }
 
-
     /**
      * @param memberTargetType Java target type associated from Python class
      * @param methodName       method name will be evaluated
@@ -44,7 +43,6 @@ public class PythonExecutor {
         var type = mapValue(memberTargetType, methodName, context);
         return invokeMethod(memberTargetType, type, methodName);
     }
-
     /**
      * Close context if it is not null
      */
@@ -69,7 +67,6 @@ public class PythonExecutor {
             throw new PolyglotApiExecutionException("Interface name '" + interfaceName + "' must me equals python class name '" + pyClassName + "'");
         }
     }
-
 
     /**
      * @param memberTargetType Java target type associated from Python class
@@ -118,5 +115,4 @@ public class PythonExecutor {
         }
         return source;
     }
-
 }

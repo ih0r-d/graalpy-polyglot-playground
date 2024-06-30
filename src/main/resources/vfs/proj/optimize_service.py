@@ -1,7 +1,5 @@
 import polyglot
 
-### Begin of implementation
-
 import copy
 
 class SimplexSolver:
@@ -28,8 +26,8 @@ class SimplexSolver:
         self.gen_doc = False
         self.doc = ""
 
-    def run_simplex(self, aInput, bInput, cInput, prob='max', ineq=None,
-                    enableMsg=False, latex=False):
+    def run_simplex(self, aInput, bInput, cInput, prob='max',
+                    ineq=None, enableMsg=False, latex=False):
         """ Run simplex algorithm.
         """
         if ineq is None:
@@ -471,8 +469,6 @@ class SimplexSolver:
                 print('| %s' % self.departing[num])
             else:
                 print('|')
-
-### End of implementation
 
 
 polyglot.export_value("OptimizeService", SimplexSolver)

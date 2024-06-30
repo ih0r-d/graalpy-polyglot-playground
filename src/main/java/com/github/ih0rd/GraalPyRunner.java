@@ -28,7 +28,6 @@ public class GraalPyRunner {
         var prob = "max";
         var enableMsg = false;
         var latex = true;
-
         var simplexArgs = new Object[]{aInput, bInput, cInput, prob, null, enableMsg, latex};
 
         var runSimplexResult = pythonExecutor.evaluate("run_simplex", OptimizeService.class, simplexArgs);

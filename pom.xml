@@ -81,6 +81,7 @@
                         <configuration>
                             <packages>
                                 <package>termcolor</package>
+                                <package>requests</package>
                             </packages>
                             <pythonHome>
                                 <includes>

@@ -42,4 +42,9 @@ public class StringCaseConverter {
         return result.toString();
     }
 
+
+//    public static boolean compare(String snakeCase, String camelCase) {
+//        return snakeToCamel(snakeCase).equals(camelCase) && camelToSnake(camelCase).equals(snakeCase);
+//    }
+
 }

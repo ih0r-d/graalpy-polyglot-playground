@@ -61,6 +61,7 @@
     </dependencies>
 
     <build>
+        <outputDirectory>target/classes</outputDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -78,10 +79,15 @@
                 <version>${graalpy.version}</version>
                 <executions>
                     <execution>
+                        <phase>generate-resources</phase>
                         <configuration>
+                            <!-- Need to initialize venv with setup default packages-->
                             <packages>
-                                <package>termcolor</package>
-                                <package>requests</package>
+                                <package>pip</package>
+<!--                            </packages>-->
+<!--                            <packages>-->
+<!--                                <package>scipy==1.10.1</package>-->
+<!--                                <package>numpy==1.23.5</package> &lt;!&ndash; OK &ndash;&gt;-->
                             </packages>
                             <pythonHome>
                                 <includes>

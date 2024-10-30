@@ -1,4 +1,4 @@
-package com.github.ih0rd.adapters;
+package com.github.ih0rd.contracts;
 
 import java.util.List;
 import java.util.Map;

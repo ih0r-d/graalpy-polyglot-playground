@@ -1,6 +1,6 @@
 package com.github.ih0rd.utils;
 
-import com.github.ih0rd.exceptions.PolyglotApiExecutionException;
+import com.github.ih0rd.exceptions.GraalPyExecutionException;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -34,7 +34,7 @@ public class CommonUtils {
             return Map.of("returnType",  method.getReturnType().getCanonicalName(), "result", invoke != null ? invoke : Optional.empty());
 
         } catch (Exception e) {
-            throw new PolyglotApiExecutionException("Could not invoke method '" + methodName + "'", e);
+            throw new GraalPyExecutionException("Could not invoke method '" + methodName + "'", e);
         }
     }
 
@@ -55,7 +55,7 @@ public class CommonUtils {
                 .filter(method -> method.getName().equals(methodName))
                 .findFirst();
         if (methodOptional.isEmpty()) {
-            throw new PolyglotApiExecutionException("Method '" + methodName + "' not found");
+            throw new GraalPyExecutionException("Method '" + methodName + "' not found");
         }
         return methodOptional.get().getParameterTypes();
     }
@@ -68,7 +68,7 @@ public class CommonUtils {
      */
     public static boolean checkIfMethodExists(Class<?> interfaceClass, String methodName) {
         if (!interfaceClass.isInterface()) {
-            throw new PolyglotApiExecutionException("Provided class '" + interfaceClass.getName() + "' must be an interface");
+            throw new GraalPyExecutionException("Provided class '" + interfaceClass.getName() + "' must be an interface");
         }
 
         return Arrays.stream(interfaceClass.getDeclaredMethods())

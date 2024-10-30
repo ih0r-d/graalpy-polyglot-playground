@@ -1,3 +1,5 @@
 /target
 .idea/
 *.iml
+solution.tex
+python-resources/

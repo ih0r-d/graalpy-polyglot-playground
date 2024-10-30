@@ -1,24 +1,26 @@
 package com.github.ih0rd.helpers;
 
-import com.github.ih0rd.exceptions.PolyglotApiExecutionException;
+import com.github.ih0rd.exceptions.GraalPyExecutionException;
 import com.github.ih0rd.utils.StringCaseConverter;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Source;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Optional;
 
 import static com.github.ih0rd.helpers.PolyglotHelper.*;
 import static com.github.ih0rd.utils.CommonUtils.*;
+import static com.github.ih0rd.utils.Constants.PROJ_RESOURCES_PATH;
 import static com.github.ih0rd.utils.Constants.PYTHON;
 
 public class PythonExecutor {
     private final Context context;
 
     public PythonExecutor() {
-        context = getContext();
+        context = getContext(Path.of(PROJ_RESOURCES_PATH));
     }
 
     /**
@@ -59,12 +61,12 @@ public class PythonExecutor {
      */
     private <T> void validate(String pyClassName, Class<T> memberTargetType) {
         if (pyClassName == null || pyClassName.isEmpty()) {
-            throw new PolyglotApiExecutionException("Cannot invoke Python script without valid class name : " + pyClassName);
+            throw new GraalPyExecutionException("Cannot invoke Python script without valid class name : " + pyClassName);
         }
 
         String interfaceName = memberTargetType.getSimpleName();
         if (!interfaceName.equals(pyClassName)) {
-            throw new PolyglotApiExecutionException("Interface name '" + interfaceName + "' must me equals python class name '" + pyClassName + "'");
+            throw new GraalPyExecutionException("Interface name '" + interfaceName + "' must me equals python class name '" + pyClassName + "'");
         }
     }
 
@@ -86,7 +88,7 @@ public class PythonExecutor {
         var member = polyglotBindings.getMember(pyClass);
 
         if (!checkIfMethodExists(memberTargetType, methodName) || member.getMember(methodName) == null) {
-            throw new PolyglotApiExecutionException("Method " + methodName + " is not supported to evaluate " + memberTargetType);
+            throw new GraalPyExecutionException("Method " + methodName + " is not supported to evaluate " + memberTargetType);
         }
 
         return member.newInstance().as(memberTargetType);
@@ -104,14 +106,14 @@ public class PythonExecutor {
         var pyFileName = StringCaseConverter.camelToSnake(interfaceName);
         Optional<Path> optionalPath = checkFileExists(pyFileName);
         if (optionalPath.isEmpty()) {
-            throw new PolyglotApiExecutionException("Cannot find Python script file: " + pyFileName);
+            throw new GraalPyExecutionException("Cannot find Python script file: " + pyFileName);
         }
         try {
             source = Source
                     .newBuilder(PYTHON, optionalPath.get().toFile())
                     .build();
         } catch (IOException e) {
-            throw new PolyglotApiExecutionException("Could not load Python script file: " + pyFileName, e);
+            throw new GraalPyExecutionException("Could not load Python script file: " + pyFileName, e);
         }
         return source;
     }

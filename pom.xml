@@ -81,8 +81,8 @@
                     <execution>
                         <configuration>
                             <packages>
-<!--                                <package>scipy</package>&ndash;&gt;-->
-<!--                                <package>pandas</package>&ndash;&gt;-->
+                                <package>scipy</package>-->
+                                <package>pandas</package>-->
                                 <package>numpy</package>
                                 <package>requests</package>
                                 <package>termcolor</package>

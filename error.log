@@ -1,0 +1,121 @@
+[INFO] Generating GraalPy launchers
+[INFO] Creating GraalPy 24.1.1 venv
+[INFO] Running: {USER_DIR}/Documents/personal/projects/graalpy-polyglot-playground/target/graalpy.sh -m venv {USER_DIR}/Documents/personal/projects/graalpy-polyglot-playground/python-resources/venv --without-pip
+[INFO] {USER_DIR}/Documents/personal/projects/graalpy-polyglot-playground/python-resources/venv/bin/graalpy -I -m ensurepip
+Looking in links: /var/folders/s8/lnl938f90wqc9p4712_9f3sm0000gp/T/tmpzwji2qdm
+Processing /private/var/folders/s8/lnl938f90wqc9p4712_9f3sm0000gp/T/tmpzwji2qdm/setuptools-65.5.0-py3-none-any.whl
+Processing /private/var/folders/s8/lnl938f90wqc9p4712_9f3sm0000gp/T/tmpzwji2qdm/pip-23.2.1-py3-none-any.whl
+Installing collected packages: setuptools, pip
+Successfully installed pip-23.2.1 setuptools-65.5.0
+[INFO] {USER_DIR}/Documents/personal/projects/graalpy-polyglot-playground/python-resources/venv/bin/graalpy -m pip install pandas scipy termcolor numpy requests
+Looking in indexes: https://pypi.org/simple, https://www.graalvm.org/python/wheels/
+Collecting pandas
+  Using cached pandas-2.2.2.tar.gz (4.4 MB)
+auto-patching C API usages in /private/var/folders/s8/lnl938f90wqc9p4712_9f3sm0000gp/T/pip-install-yekyn91_/pandas_f46c0f5d02b0458e876ad7055e7d554c/pandas/_libs/include/pandas/vendored/klib/khash_python.h
+Looking for GraalPy patches for pandas
+Patching package pandas using {USER_DIR}/Library/Caches/org.graalvm.polyglot/python/python-home/7f99e649dc51b21db2b83ce56bc9742e163d969b/lib/graalpy24.1/patches/pandas/pandas-2.2.2.patch
+patching file pandas/_libs/include/pandas/vendored/klib/khash_python.h
+patching file pyproject.toml
+  Installing build dependencies: started
+  Installing build dependencies: still running...
+  Installing build dependencies: finished with status 'error'
+  error: subprocess-exited-with-error
+
+  × pip subprocess to install build dependencies did not run successfully.
+  │ exit code: 1
+  ╰─> [85 lines of output]
+      Looking in indexes: https://pypi.org/simple, https://www.graalvm.org/python/wheels/, https://www.graalvm.org/python/wheels/
+      Collecting meson-python==0.13.1
+        Obtaining dependency information for meson-python==0.13.1 from https://files.pythonhosted.org/packages/9f/af/5f941f57dc516e72b018183a38fbcfb018a7e83afd3c756ecfba82f21c65/meson_python-0.13.1-py3-none-any.whl.metadata
+        Using cached meson_python-0.13.1-py3-none-any.whl.metadata (4.1 kB)
+      Collecting meson==1.2.1
+        Obtaining dependency information for meson==1.2.1 from https://files.pythonhosted.org/packages/e5/74/a1f1c6ba14e11e0fb050d2c61a78b6db108dd38383b6c0ab51c1becbbeff/meson-1.2.1-py3-none-any.whl.metadata
+        Using cached meson-1.2.1-py3-none-any.whl.metadata (1.7 kB)
+      Collecting wheel
+        Obtaining dependency information for wheel from https://files.pythonhosted.org/packages/7d/cd/d7460c9a869b16c3dd4e1e403cce337df165368c71d6af229a74699622ce/wheel-0.43.0-py3-none-any.whl.metadata
+        Using cached wheel-0.43.0-py3-none-any.whl.metadata (2.2 kB)
+      Collecting Cython==3.0.10
+        Obtaining dependency information for Cython==3.0.10 from https://files.pythonhosted.org/packages/b6/83/b0a63fc7b315edd46821a1a381d18765c1353d201246da44558175cddd56/Cython-3.0.10-py2.py3-none-any.whl.metadata
+        Using cached Cython-3.0.10-py2.py3-none-any.whl.metadata (3.2 kB)
+      Collecting numpy>=2.0.0rc1
+        Using cached numpy-2.0.2.tar.gz (18.9 MB)
+      auto-patching C API usages in /private/var/folders/s8/lnl938f90wqc9p4712_9f3sm0000gp/T/pip-install-79lmgam6/numpy_b976037e30c24434a1c65d6f7284d8b3/numpy/_core/include/numpy/ndarrayobject.h
+      auto-patching C API usages in /private/var/folders/s8/lnl938f90wqc9p4712_9f3sm0000gp/T/pip-install-79lmgam6/numpy_b976037e30c24434a1c65d6f7284d8b3/numpy/_core/include/numpy/npy_3kcompat.h
+      auto-patching C API usages in /private/var/folders/s8/lnl938f90wqc9p4712_9f3sm0000gp/T/pip-install-79lmgam6/numpy_b976037e30c24434a1c65d6f7284d8b3/numpy/_core/src/multiarray/methods.c
+      auto-patching C API usages in /private/var/folders/s8/lnl938f90wqc9p4712_9f3sm0000gp/T/pip-install-79lmgam6/numpy_b976037e30c24434a1c65d6f7284d8b3/numpy/_core/src/multiarray/dtype_transfer.c
+      auto-patching C API usages in /private/var/folders/s8/lnl938f90wqc9p4712_9f3sm0000gp/T/pip-install-79lmgam6/numpy_b976037e30c24434a1c65d6f7284d8b3/numpy/_core/src/multiarray/dlpack.c
+      auto-patching C API usages in /private/var/folders/s8/lnl938f90wqc9p4712_9f3sm0000gp/T/pip-install-79lmgam6/numpy_b976037e30c24434a1c65d6f7284d8b3/numpy/_core/src/multiarray/compiled_base.c
+      auto-patching C API usages in /private/var/folders/s8/lnl938f90wqc9p4712_9f3sm0000gp/T/pip-install-79lmgam6/numpy_b976037e30c24434a1c65d6f7284d8b3/numpy/_core/src/multiarray/stringdtype/dtype.c
+      auto-patching C API usages in /private/var/folders/s8/lnl938f90wqc9p4712_9f3sm0000gp/T/pip-install-79lmgam6/numpy_b976037e30c24434a1c65d6f7284d8b3/numpy/_core/src/umath/_rational_tests.c
+      auto-patching C API usages in /private/var/folders/s8/lnl938f90wqc9p4712_9f3sm0000gp/T/pip-install-79lmgam6/numpy_b976037e30c24434a1c65d6f7284d8b3/numpy/_core/src/umath/override.c
+      Looking for GraalPy patches for numpy
+      Patching package numpy using {USER_DIR}/Library/Caches/org.graalvm.polyglot/python/python-home/7f99e649dc51b21db2b83ce56bc9742e163d969b/lib/graalpy24.1/patches/numpy/numpy-2.0.0.patch
+      patching file numpy/_core/include/numpy/ndarrayobject.h
+      patching file numpy/_core/src/multiarray/compiled_base.c
+      patching file numpy/_core/src/multiarray/shape.c
+      patching file numpy/_core/src/multiarray/stringdtype/dtype.c
+      Hunk #1 succeeded at 832 (offset 15 lines).
+      patching file numpy/_core/src/multiarray/temp_elide.c
+      patching file numpy/_core/src/npymath/ieee754.c.src
+      patching file numpy/_core/src/npymath/ieee754.cpp
+      patching file vendored-meson/meson/mesonbuild/utils/universal.py
+      Hunk #1 succeeded at 728 (offset 1 line).
+        Installing build dependencies: started
+        Installing build dependencies: finished with status 'done'
+        Getting requirements to build wheel: started
+        Getting requirements to build wheel: finished with status 'done'
+        Installing backend dependencies: started
+        Installing backend dependencies: finished with status 'done'
+        Preparing metadata (pyproject.toml): started
+        Preparing metadata (pyproject.toml): finished with status 'error'
+        error: subprocess-exited-with-error
+
+        × Preparing metadata (pyproject.toml) did not run successfully.
+        │ exit code: 1
+        ╰─> [26 lines of output]
+            Traceback (most recent call last):
+              File "{USER_DIR}/Documents/personal/projects/graalpy-polyglot-playground/python-resources/venv/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 353, in <module>
+                main()
+              File "{USER_DIR}/Documents/personal/projects/graalpy-polyglot-playground/python-resources/venv/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 335, in main
+                json_out['return_val'] = hook(**hook_input['kwargs'])
+              File "{USER_DIR}/Documents/personal/projects/graalpy-polyglot-playground/python-resources/venv/lib/python3.11/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py", line 152, in prepare_metadata_for_build_wheel
+                whl_basename = backend.build_wheel(metadata_directory, config_settings)
+              File "/private/var/folders/s8/lnl938f90wqc9p4712_9f3sm0000gp/T/pip-build-env-ita7mnsu/overlay/lib/python3.11/site-packages/mesonpy/__init__.py", line 1050, in wrapper
+                return func(*args, **kwargs)
+              File "/private/var/folders/s8/lnl938f90wqc9p4712_9f3sm0000gp/T/pip-build-env-ita7mnsu/overlay/lib/python3.11/site-packages/mesonpy/__init__.py", line 1103, in build_wheel
+                with _project(config_settings) as project:
+              File "{USER_DIR}/Library/Caches/org.graalvm.polyglot/python/python-home/7f99e649dc51b21db2b83ce56bc9742e163d969b/lib/python3.11/contextlib.py", line 137, in __enter__
+                return next(self.gen)
+              File "/private/var/folders/s8/lnl938f90wqc9p4712_9f3sm0000gp/T/pip-build-env-ita7mnsu/overlay/lib/python3.11/site-packages/mesonpy/__init__.py", line 969, in _project
+                yield Project(source_dir, build_dir, meson_args, editable_verbose)
+              File "/private/var/folders/s8/lnl938f90wqc9p4712_9f3sm0000gp/T/pip-build-env-ita7mnsu/overlay/lib/python3.11/site-packages/mesonpy/__init__.py", line 664, in __init__
+                self._ninja = _env_ninja_command()
+              File "/private/var/folders/s8/lnl938f90wqc9p4712_9f3sm0000gp/T/pip-build-env-ita7mnsu/overlay/lib/python3.11/site-packages/mesonpy/__init__.py", line 1027, in _env_ninja_command
+                version = subprocess.run([ninja_path, '--version'], check=False, text=True, capture_output=True).stdout
+              File "{USER_DIR}/Library/Caches/org.graalvm.polyglot/python/python-home/7f99e649dc51b21db2b83ce56bc9742e163d969b/lib/python3.11/subprocess.py", line 550, in run
+                with Popen(*popenargs, **kwargs) as process:
+              File "{USER_DIR}/Library/Caches/org.graalvm.polyglot/python/python-home/7f99e649dc51b21db2b83ce56bc9742e163d969b/lib/python3.11/subprocess.py", line 1028, in __init__
+                self._execute_child(args, executable, preexec_fn, close_fds,
+              File "{USER_DIR}/Library/Caches/org.graalvm.polyglot/python/python-home/7f99e649dc51b21db2b83ce56bc9742e163d969b/lib/python3.11/subprocess.py", line 1997, in _execute_child
+                raise child_exception_type(errno_num, err_msg, err_filename)
+            OSError: [Errno 8] Exec format error: '/private/var/folders/s8/lnl938f90wqc9p4712_9f3sm0000gp/T/pip-build-env-ita7mnsu/normal/bin/ninja'
+            [end of output]
+
+        note: This error originates from a subprocess, and is likely not a problem with pip.
+      error: metadata-generation-failed
+
+      × Encountered error while generating package metadata.
+      ╰─> See above for output.
+
+      note: This is an issue with the package mentioned above, not pip.
+      hint: See above for details.
+      [end of output]
+
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+error: subprocess-exited-with-error
+
+× pip subprocess to install build dependencies did not run successfully.
+│ exit code: 1
+╰─> See above for output.
+
+note: This error originates from a subprocess, and is likely not a problem with pip.

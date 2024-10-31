@@ -45,34 +45,49 @@ java -jar target/graalpy-demo-1.0-SNAPSHOT.jar
 
 ## Project Structure
 ```
+├── LICENSE
 ├── README.md
+├── build.sh
+├── error.log
+├── mvnw
+├── mvnw.cmd
 ├── pom.xml
+├── python-resources
+│         ├── home
+│         │         ├── lib-graalpython
+│         │         └── lib-python
+│         │             └── 3
+│         └── venv
+│             ├── bin
+│             ├── include
+│             │         └── python3.11
+│             └── lib
+│                 └── python3.11
 └── src
     └── main
         ├── java
-        │   └── com
-        │       └── github
-        │           └── ih0rd
-        │               ├── GraalPyRunner.java
-        │               ├── adapters
-        │               │   ├── Hello.java
-        │               │   └── OptimizeService.java
-        │               ├── exceptions
-        │               │   └── PolyglotApiExecutionException.java
-        │               ├── helpers
-        │               │   ├── PolyglotHelper.java
-        │               │   └── PythonExecutor.java
-        │               └── utils
-        │                   ├── CommonUtils.java
-        │                   ├── Constants.java
-        │                   └── StringCaseConverter.java
+        │    └── com
+        │        └── github
+        │                 └── ih0rd
+        │                     ├── GraalPyRunner.java
+        │                     ├── contracts
+        │                     │         ├── Hello.java
+        │                     │         ├── OptimizeService.java
+        │                     │         └── RequestHandler.java
+        │                     ├── exceptions
+        │                     │         └── GraalPyExecutionException.java
+        │                     ├── helpers
+        │                     │         ├── PolyglotHelper.java
+        │                     │         └── PythonExecutor.java
+        │                     └── utils
+        │                         ├── CommonUtils.java
+        │                         ├── Constants.java
+        │                         └── StringCaseConverter.java
+        ├── python
+        │         ├── hello.py
+        │         ├── optimize_service.py
+        │         └── request_handler.py
         └── resources
-            └── vfs
-                └── proj
-                    ├── hello.py
-                    └── optimize_service.py
-
-13 directories, 13 files
 
 ```
 

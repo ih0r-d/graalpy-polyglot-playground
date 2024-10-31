@@ -1,9 +1,9 @@
 
 # Polyglot Python-Java Application on GraalVM
 
-![GraalVM](https://img.shields.io/badge/GraalVM-Community%20Edition-007d9c)
-![Java](https://img.shields.io/badge/Java-21%2B-brightgreen)
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![GraalPy](https://img.shields.io/badge/GraalPy-24.1.1-007d9c)
+![Java](https://img.shields.io/badge/Java-23--graal-brightgreen)
+![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
 This simple project is meant as a jumping off point for a polyglot Python-Java application on GraalVM.
@@ -23,25 +23,25 @@ This project demonstrates how to create a polyglot application using GraalVM, in
 To get started with this project, you need to have GraalVM installed. Follow the instructions on the [GraalVM website](https://www.graalvm.org/) to install GraalVM for your operating system.
 
 ### Prerequisites
-- GraalVM Community Edition 21.0.0 or later
-- Java 21
-- Python 3.8 or later
+- GraalPy 24.1.1
+- Java 23.0.1-graal
+- Python 3.11
 
 ### Steps
 1. Clone the repository:
     ```sh
-    git clone https://github.com/ih0r-d/graalpy-polyglot-playground.git
+    git clone https://github.com/ih0r-d/graalvm-polyglot-sandbox.git
     ```
 2. Build a project with install the necessary Python dependencies via maven plugin:
     ```sh
-    mvn clean package -DskipTests
+    ./mvnw clean package -T4C
     ```
 
 ## Usage
 To run the polyglot application, use the following command:
-```sh
-java -jar target/graalpy-demo-1.0-SNAPSHOT.jar
-```
+   ```sh
+   java -jar target/graalpy-demo.jar
+   ```
 
 ## Project Structure
 ```

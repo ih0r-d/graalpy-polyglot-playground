@@ -1,3 +1,3 @@
 #!/bin/sh
 
-rm -r python-resources/ || true && ./mvnw clean package -T4C
+rm -r python-resources/ || true && ./mvnw clean package

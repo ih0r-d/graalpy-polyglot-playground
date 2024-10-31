@@ -7,14 +7,12 @@ import org.graalvm.polyglot.Source;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Optional;
 
 import static com.github.ih0rd.helpers.PolyglotHelper.*;
 import static com.github.ih0rd.utils.CommonUtils.*;
-import static com.github.ih0rd.utils.Constants.PROJ_RESOURCES_PATH;
-import static com.github.ih0rd.utils.Constants.PYTHON;
+import static com.github.ih0rd.utils.Constants.*;
 
 public class PythonExecutor {
     private final Context context;
